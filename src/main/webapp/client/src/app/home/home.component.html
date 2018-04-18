@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+      <h2>Home</h2>
+    </div>
+    <div class="col-sm-10">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" placeholder="Enter the id of the heater you need" name="s" class="form-control left-rounded">
+          <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+        </div>
+        </div>
+      </div>
+  </div>
+  <table class="table">
+    <thead>
+    <th>Id Maison</th>
+    <th>Number of rooms</th>
+    <th>Acreage</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let home of homes">
+      <td>{{ home.idHome }}</td>
+      <td>{{ home.nbRoom }}</td>
+      <td>{{ home.size }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-primary" (click)="showModal()">Add a home</button>
+  <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title pull-left">Add a home</h4>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/home" (ngSubmit)="addHome()">
+            <div class="form-group">
+              <label for="nbRoom">Number of rooms</label>
+              <input id="nbRoom" type=text class="form-control" name=nbRoom placeholder="Number of Rooms"[(ngModel)]="nbRoom">
+            </div>
+            <div class="form-group">
+              <label for="size">Acreage</label>
+              <input id="size" type=text class="form-control" name=size placeholder="Acreage"[(ngModel)]="size">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

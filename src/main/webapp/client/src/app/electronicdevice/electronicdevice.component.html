@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+      <h2>Electronic Device</h2>
+    </div>
+    <div class="col-sm-10">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" placeholder="Enter the id of the heater you need" name="s" class="form-control left-rounded">
+          <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+        </div>
+        </div>
+      </div>
+  </div>
+  <table class="table">
+    <thead>
+    <th>Id</th>
+    <th>Fonction</th>
+    <th>Consumption</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let electronicdevice of electronicdevices">
+      <td>{{ electronicdevice.idElectronicDevice}}</td>
+      <td>{{ electronicdevice.fonction }}</td>
+      <td>{{ electronicdevice.consomation }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-primary" (click)="showModal()">Add an electronic device</button>
+  <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title pull-left">Add an electronic device</h4>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/electronicdevice" (ngSubmit)="addElectronicDevice()">
+            <div class="form-group">
+              <label for="fonction">Fonction</label>
+              <input id="fonction" type=text class="form-control" name=fonction placeholder="Fonction"[(ngModel)]="fonction">
+            </div>
+            <div class="form-group">
+              <label for="consumption">Consumption</label>
+              <input id="consumption" type=text class="form-control" name=consumption placeholder="Consumption"[(ngModel)]="consumption">
+            </div>
+            <div class="form-group">
+              <label for="idHome">Residences</label>
+              <select id="idHome" name="idHome" [(ngModel)]="idHome">
+                <option *ngFor="let home of homes">{{ home.idHome }}</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
